@@ -1,1 +1,79 @@
-# Gui.lua
+
+if not game:IsLoaded() then game.Loaded:Wait() end
+
+local Players = game:GetService("Players")
+local TweenService = game:GetService("TweenService")
+local LocalPlayer = Players.LocalPlayer
+
+-- Create ScreenGui
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "AsylumLoader"
+ScreenGui.ResetOnSpawn = false
+ScreenGui.Parent = LocalPlayer:WaitForChild("PlayerGui")
+
+-- Main Frame
+local MainFrame = Instance.new("Frame")
+MainFrame.Size = UDim2.new(0, 380, 0, 260)
+MainFrame.Position = UDim2.new(0.5, -190, 0.5, -130)
+MainFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 25)
+MainFrame.BorderSizePixel = 0
+MainFrame.Parent = ScreenGui
+
+local UICorner = Instance.new("UICorner")
+UICorner.CornerRadius = UDim.new(0, 14)
+UICorner.Parent = MainFrame
+
+-- Title
+local Title = Instance.new("TextLabel")
+Title.Size = UDim2.new(1, 0, 0, 70)
+Title.BackgroundTransparency = 1
+Title.Text = "ASYLUM AIM HUB"
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.TextSize = 24
+Title.Font = Enum.Font.GothamBold
+Title.Parent = MainFrame
+
+local Subtitle = Instance.new("TextLabel")
+Subtitle.Size = UDim2.new(1, 0, 0, 25)
+Subtitle.Position = UDim2.new(0, 0, 0, 45)
+Subtitle.BackgroundTransparency = 1
+Subtitle.Text = "Silent Aim Loader"
+Subtitle.TextColor3 = Color3.fromRGB(170, 170, 255)
+Subtitle.TextSize = 15
+Subtitle.Font = Enum.Font.Gotham
+Subtitle.Parent = MainFrame
+
+-- Buttons
+local function createButton(text, yOffset, color, callback)
+    local Btn = Instance.new("TextButton")
+    Btn.Size = UDim2.new(1, -40, 0, 55)
+    Btn.Position = UDim2.new(0, 20, 0, yOffset)
+    Btn.BackgroundColor3 = color
+    Btn.Text = text
+    Btn.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Btn.TextSize = 18
+    Btn.Font = Enum.Font.GothamBold
+    Btn.Parent = MainFrame
+    
+    local corner = Instance.new("UICorner")
+    corner.CornerRadius = UDim.new(0, 12)
+    corner.Parent = Btn
+    
+    Btn.MouseButton1Click:Connect(function()
+        Btn.BackgroundColor3 = Color3.fromRGB(40, 40, 50)
+        task.wait(0.1)
+        callback()
+    end)
+end
+
+-- Mobile Button
+createButton("Load Mobile Version", 90, Color3.fromRGB(0, 170, 255), function()
+    ScreenGui:Destroy()
+    loadstring(game:HttpGet("https://pastebin.com/raw/RDETDZij"))()
+end)
+
+-- PC Button
+createButton("Load PC Version", 155, Color3.fromRGB(138, 43, 226), function()
+    ScreenGui:Destroy()
+    loadstring(game:HttpGet("https://pastebin.com/raw/yDbTMWXq"))()
+end)
